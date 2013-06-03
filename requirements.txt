@@ -1,0 +1,6 @@
+APScheduler==2.1.0
+argparse==1.2.1
+daemon==1.0
+drop-privileges==0.1
+importlib==1.0.2
+xmlrpclib==1.0.1
