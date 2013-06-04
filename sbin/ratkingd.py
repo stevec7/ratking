@@ -109,8 +109,8 @@ class Ratkingd(object):
 
     def run(self):
         """
-        You should override this method when you subclass Daemon. It will be called after the process has been
-        daemonized by start() or restart().
+        You should override this method when you subclass Daemon. It will be 
+        called after the process has been daemonized by start() or restart().
         """
 
         # import some modules and then go to the strip club
@@ -135,7 +135,7 @@ class Ratkingd(object):
             else:
                 conf = '.'.join(opt.split('.')[1:])
 
-                # if the value is an int, we need to pass it to sched.configure properly. handle that here
+                # if the value is an int, pass it to sched.configure correctly
                 isint = re.compile(r'^[0-9]')
 
                 if bool(isint.search(self.config.get('main', opt))):

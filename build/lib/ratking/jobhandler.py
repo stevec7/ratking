@@ -403,6 +403,9 @@ class JobCtl(object):
         """Loads appropriate module, changes uid/gid to owner/group, and runs the job """
        
         plugin_dir = self.config.get('main', 'plugin_dir')
+        plugin_name = kwargs['plugin_name'].split('.')[0]
+        print kwargs['plugin_name']
+        print plugin_name
         plugin_path = "%s%s%s" % (plugin_dir, os.path.sep, kwargs['plugin_name'])
         sys.path.append(plugin_dir)
 
@@ -420,7 +423,9 @@ class JobCtl(object):
             
 
             if kwargs['plugin_name'] not in sys.modules.keys():
-                lib = importlib.import_module(kwargs['plugin_name'])
+                self.logging.debug("Importing module: %s" % plugin_name)
+                lib = importlib.import_module(plugin_name)
+                #lib = importlib.import_module(kwargs['plugin_name'])
 
             else:
                 #lib = importlib.import_module(kwargs['plugin_name'])
@@ -428,7 +433,8 @@ class JobCtl(object):
                 #   will be in effect. usecases would be if you disable/re-enable a job due to error.
                 #   Python won't 'unload' the module when you disable it. remove_job and then add_job
                 #   probably won't do any garbage collection either.
-                reload(kwargs['plugin_name'])
+                self.logging.debug("Reloading module: %s" % plugin_name)
+                reload(plugin_name)
 
         except ImportError as ie:
             
