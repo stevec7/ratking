@@ -405,7 +405,7 @@ class JobCtl(object):
         plugin_dir = self.config.get('main', 'plugin_dir')
         plugin_name = kwargs['plugin_name'].split('.')[0]
         plugin_path = "%s%s%s" % (plugin_dir, os.path.sep, kwargs['plugin_name'])
-        sys.path.append(plugin_dir)
+        #sys.path.append(plugin_dir)
 
         # this loads the plugin
         try:
@@ -423,10 +423,8 @@ class JobCtl(object):
             if kwargs['plugin_name'] not in sys.modules.keys():
                 self.logging.debug("Importing module: %s" % plugin_name)
                 lib = importlib.import_module(plugin_name)
-                #lib = importlib.import_module(kwargs['plugin_name'])
 
             else:
-                #lib = importlib.import_module(kwargs['plugin_name'])
                 # we reload so that each time the script is run, any updates to the plugin
                 #   will be in effect. usecases would be if you disable/re-enable a job due to error.
                 #   Python won't 'unload' the module when you disable it. remove_job and then add_job

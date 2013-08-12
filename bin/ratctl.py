@@ -39,15 +39,17 @@ def main(args):
 
     test = True
 
+    # check if user running the client is allowed...
+    returncode,output = s.check_auth(user)
+
+    # no passing go broseph... 
+    if returncode is False:
+        print output
+        sys.exit(1)
+    else:
+        pass
+
     try:
-
-        # check if user running the client is allowed...
-        returncode,output = s.check_auth(user)
-
-        # no passing go broseph... 
-        if returncode is False:
-            print output
-            sys.exit(1)
 
         if args.listjobs:
             out = s.show_jobs()
@@ -100,7 +102,7 @@ def main(args):
         sys.exit(1)
 
     except socket.error as se:
-        print "ERROR: Socket error, XMLRPC server not running..."                            
+        print "ERROR: Socket error, XMLRPC server not running..."
         sys.exit(1)
 
 if __name__ == '__main__':
